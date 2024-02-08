@@ -44,6 +44,8 @@ class Server:
         """
         Get a page
         """
+        assert type(page) is int
+        assert type(page_size) is int
         assert (page > 0) and (page_size > 0)
         data_range = index_range(page, page_size)
         # print("data range: {} <-> {}".format(\
