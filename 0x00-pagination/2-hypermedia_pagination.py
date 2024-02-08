@@ -48,8 +48,6 @@ class Server:
         assert type(page_size) is int
         assert (page > 0) and (page_size > 0)
         data_range = index_range(page, page_size)
-        # print("data range: {} <-> {}".format(\
-        #        data_range[0], data_range[1])) # test
         data = []
         dataset = self.dataset()
         count = 0
@@ -62,7 +60,6 @@ class Server:
                 break
 
             data.append(row)
-            # print("count: {}\t|\t{}".format(count, row))    # test
             count += 1
 
         return data
@@ -85,22 +82,25 @@ class Server:
         hyper['page_size'] = data_size
         hyper['page'] = page
         hyper['data'] = data
+
+        # Set next page
         try:
             if self.__dataset[index_range(page + 1, page_size)[0]]:
                 hyper['next_page'] = page + 1
         except IndexError:
             hyper['next_page'] = None
 
+        # Set previous page
         try:
             if page < 2:
                 raise IndexError('First page does not have a previous page')
 
             if self.__dataset[index_range(page - 1, page_size)[0]]:
-                print("dataset has prev: {}".format(self.__dataset[index_range(page - 1, page_size)[0]]))   # test
                 hyper['prev_page'] = page - 1
         except IndexError:
             hyper['prev_page'] = None
 
+        # Set total pages
         if self.__dataset:
             total_size = len(self.__dataset)
             hyper['total_pages'] = math.ceil(total_size / page_size)
