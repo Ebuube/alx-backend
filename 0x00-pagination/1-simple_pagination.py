@@ -44,9 +44,10 @@ class Server:
         """
         Get a page
         """
-        assert(page > 0 and page_size > 0)
+        assert (page > 0) and (page_size > 0)
         data_range = index_range(page, page_size)
-        print("data range: {} <-> {}".format(data_range[0], data_range[1])) # test
+        # print("data range: {} <-> {}".format(\
+        #        data_range[0], data_range[1])) # test
         data = []
         dataset = self.dataset()
         count = 0
@@ -59,7 +60,7 @@ class Server:
                 break
 
             data.append(row)
-            print("count: {}\t|\t{}".format(count, row))    # test
+            # print("count: {}\t|\t{}".format(count, row))    # test
             count += 1
 
         return data
