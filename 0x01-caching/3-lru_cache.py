@@ -11,19 +11,17 @@ class LRUCache(BaseCaching):
 
     def put(self, key, item):
         """Insert an item in the cache
-
-        Concept: Dictionaries maintain their order of insertion
         """
         if key is None or item is None:
             return
-            
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            # Access the oldest inserted item
-            lru_key = next(iter(self.cache_data))
-            del self.cache_data[lru_key]
-            print(f"DISCARD: {lru_key}\n")
-            
+
+        if (len(self.cache_data) == BaseCaching.MAX_ITEMS and
+                key not in self.cache_data):
+            discarded = self.pop()
+            print("DISCARD: {}".format(discarded[0]))
+
         self.cache_data[key] = item
+        self.ping(key)
 
     def pop(self):
         """Remove the least recently used key and item
@@ -70,4 +68,5 @@ class LRUCache(BaseCaching):
         if key is None or key not in self.cache_data:
             return None
 
+        self.ping(key)
         return self.cache_data[key]
