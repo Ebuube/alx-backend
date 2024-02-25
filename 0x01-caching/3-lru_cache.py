@@ -16,7 +16,7 @@ class LRUCache(BaseCaching):
         if key is None or item is None:
             return
 
-        if (len(self.cache_data) == BaseCaching.MAX_ITEMS and
+        if (len(self.cache_data) >= BaseCaching.MAX_ITEMS and
                 key not in self.cache_data):
             discarded = self.evict()
             print("DISCARD: {}".format(discarded[0]))
