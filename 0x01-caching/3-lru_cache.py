@@ -22,7 +22,6 @@ class LRUCache(BaseCaching):
             print("DISCARD: {}".format(discarded[0]))
 
         self.cache_data[key] = item
-        # self.ping(key)
         self.evict_ping(key)
 
     def evict(self):
@@ -102,6 +101,5 @@ class LRUCache(BaseCaching):
         if key is None or key not in self.cache_data:
             return None
 
-        # self.ping(key)
         self.evict_ping(key)
         return self.cache_data[key]
