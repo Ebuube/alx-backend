@@ -28,6 +28,8 @@ class LRUCache(BaseCaching):
         """
         min_used = None
         equal_use = True
+
+        # Find the least used item
         for key, val in self.order.items():
             if not min_used:
                 min_used = key
@@ -38,12 +40,17 @@ class LRUCache(BaseCaching):
             if val < self.order[min_used]:
                 min_used = key
 
-        # If equally used, use FIFO to evict cache block
+        # If all items are equally used, use FIFO to evict cache block
+        # I.e evict the first item to enter the cache
+        # NB: Dictionaries maintain items in order of insertion
+        # So, I can easily evict the very first item while iterating
+        # through the dictionary
         if equal_use:
             for key, val in self.order.items():
                 min_used = key
                 break
 
+        # Removed item from cache
         item = self.cache_data.pop(min_used)
 
         # update order
