@@ -8,6 +8,7 @@ class LRUCache(BaseCaching):
     """A caching class that implements Least Recently Used caching policy
     """
     order = {}
+    evict_order = []    # First item is LRU
 
     def put(self, key, item):
         """Insert an item in the cache
@@ -17,11 +18,37 @@ class LRUCache(BaseCaching):
 
         if (len(self.cache_data) == BaseCaching.MAX_ITEMS and
                 key not in self.cache_data):
-            discarded = self.pop()
+            discarded = self.evict()
             print("DISCARD: {}".format(discarded[0]))
 
         self.cache_data[key] = item
-        self.ping(key)
+        # self.ping(key)
+        self.evict_ping(key)
+
+    def evict(self):
+        """Remove the least recently used key and item
+        """
+        if len(self.evict_order) <= 0:
+            return None, None
+
+        key = self.evict_order[0]
+        val = self.cache_data[key]
+
+        # Delete from cache
+        self.cache_data.pop(key)
+
+        # Update evict order
+        self.evict_order.remove(key)
+
+        return key, val
+
+    def evict_ping(self, key):
+        """Update evict order
+        """
+        if key in self.evict_order:
+            self.evict_order.remove(key)
+
+        self.evict_order.append(key)
 
     def pop(self):
         """Remove the least recently used key and item
@@ -75,5 +102,6 @@ class LRUCache(BaseCaching):
         if key is None or key not in self.cache_data:
             return None
 
-        self.ping(key)
+        # self.ping(key)
+        self.evict_ping(key)
         return self.cache_data[key]
