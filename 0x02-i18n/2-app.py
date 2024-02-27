@@ -28,7 +28,14 @@ babel = Babel(app)
 def home() -> str:
     """Return a home page
     """
-    return render_template('1-index.html')
+    return render_template('2-index.html')
+
+
+@babel.localeselector
+def get_locale():
+    """Get the locale for a given web page
+    """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == '__main__':
