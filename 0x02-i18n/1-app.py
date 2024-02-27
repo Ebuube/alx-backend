@@ -7,24 +7,23 @@ from flask_babel import Babel
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.url_map.strict_slashes = False
 
 
 # Config class for languages
 class Config:
     LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
 # Instantiates Babel object
+app.config.from_object(Config)
 babel = Babel(app)
 
-# Set up babel
-app.config.from_object(Config)
-babel.default_locale = 'en'
-babel.timezone = 'UTC'
 
-
-@app.route('/', strict_slashes=False)
-def home():
+@app.route('/')
+def home() -> str:
     """Return a home page
     """
     return render_template('0-index.html')
