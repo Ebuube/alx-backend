@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """Start a Flask web application to server dynamic web page
 """
 from flask import Flask, render_template
