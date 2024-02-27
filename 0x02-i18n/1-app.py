@@ -12,6 +12,8 @@ app.url_map.strict_slashes = False
 
 # Config class for languages
 class Config:
+    """For the configuration of Babel
+    """
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
