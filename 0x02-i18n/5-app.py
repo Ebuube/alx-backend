@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Start a Flask web application to serve dynamic web page
 """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel, _    # note the dash
 from typing import Optional
 
@@ -24,12 +24,40 @@ class Config:
 app.config.from_object(Config)
 babel = Babel(app)
 
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
+
+def get_user(user_id) -> dict:
+    """Find a user and return them
+    or None
+    """
+    return users.get(user_id, None)
+
+@app.before_request
+def before_request():
+    """Handle specific tasks like getting user
+    """
+    user_id = request.args.get('login_as')
+    try:
+        user_id = int(user_id)
+    except TypeError:
+        pass
+    print("User id is: %d".format(user_id))
+    user = get_user(user_id)
+
+    # Set the user as a Global
+    g.user = user
+
 
 @app.route('/')
 def home() -> str:
     """Return a home page
     """
-    return render_template('4-index.html')
+    return render_template('5-index.html')
 
 
 @babel.localeselector
