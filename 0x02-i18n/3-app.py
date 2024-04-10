@@ -32,7 +32,7 @@ def home() -> str:
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """Get the locale for a given web page
     """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
