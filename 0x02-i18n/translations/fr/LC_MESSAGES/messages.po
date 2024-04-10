@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-06 23:11+0000\n"
-"PO-Revision-Date: 2024-03-06 23:12+0000\n"
+"POT-Creation-Date: 2024-04-10 04:47+0000\n"
+"PO-Revision-Date: 2024-04-10 04:48+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
+
+#: templates/3-index.html
+msgid "home_title"
+msgstr "Bienvenue chez Holberton"
+
+#: templates/3-index.html
+msgid "home_header"
+msgstr "Bonjour monde!"
 
 #: venv/lib/python3.8/site-packages/click/_termui_impl.py:518
 msgid "{editor}: Editing failed"
