@@ -3,6 +3,7 @@
 """
 from flask import Flask, render_template, request
 from flask_babel import Babel, _    # note the dash
+from typing import Optional
 
 
 app = Flask(__name__)
@@ -32,7 +33,7 @@ def home() -> str:
 
 
 @babel.localeselector
-def get_locale() -> str:
+def get_locale() -> Optional[str]:
     """Get the locale for a given web page
     """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
