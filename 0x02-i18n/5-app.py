@@ -2,8 +2,8 @@
 """Start a Flask web application to serve dynamic web page
 """
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, _    # note the dash
-from typing import Optional
+from flask_babel import Babel   # note the dash
+from typing import Optional, Dict, Any
 
 
 app = Flask(__name__)
@@ -31,11 +31,13 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
-def get_user(user_id) -> dict:
+
+def get_user(user_id) -> object:
     """Find a user and return them
     or None
     """
     return users.get(user_id, None)
+
 
 @app.before_request
 def before_request():
@@ -46,7 +48,7 @@ def before_request():
         user_id = int(user_id)
     except TypeError:
         pass
-    print("User id is: %d".format(user_id))
+    print("User id is: {}".format(user_id))
     user = get_user(user_id)
 
     # Set the user as a Global
