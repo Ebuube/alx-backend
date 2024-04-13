@@ -2,7 +2,7 @@
 """Start a Flask web application to serve dynamic web page
 """
 from flask import Flask, render_template, request
-from flask_babel import Babel, _    # note the dash
+from flask_babel import Babel   # note the dash
 from typing import Optional
 
 
