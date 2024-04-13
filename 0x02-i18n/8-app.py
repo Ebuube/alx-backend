@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Start a Flask web application to serve dynamic web page
 """
-from flask import Flask, render_template, request, g
-from flask_babel import Babel   # note the dash
 import pytz
+from datetime import datetime
+from flask import Flask, render_template, request, g
+from flask_babel import Babel, format_datetime   # note the dash
 from typing import Optional
 
 
@@ -69,7 +70,9 @@ def before_request():
 def home() -> str:
     """Return a home page
     """
-    return render_template('7-index.html')
+    current_time = datetime.now(get_timezone())
+    formatted_time = format_datetime(current_time, format='medium')
+    return render_template('8-index.html', user_time=formatted_time)
 
 
 @babel.localeselector
@@ -101,9 +104,9 @@ def validate_timezone(timezone):
     """Validate a timzezone
     """
     try:
-        pytz.timezone(timezone)
+        timezone = pytz.timezone(timezone)
         return timezone
-    except pytz.exceptions.UnkownTimeZoneError:
+    except pytz.exceptions.UnknownTimeZoneError:
         return babel.default_timezone
 
 
@@ -112,7 +115,7 @@ def get_user_timezone():
     """
     user_timezone = None
     if hasattr(g, 'user') and g.user and 'timezone' in g.user:
-        user_timezone = g.user.get('timezone')
+        user_timezone = g.user.get('timezone', '')
     return user_timezone
  
 
