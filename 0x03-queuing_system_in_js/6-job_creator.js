@@ -6,8 +6,8 @@ const queueName = 'push_notification_code';
 
 // Define payload
 const payload = {
-  phoneNumber: '+2347040369093',
-  message: 'Hello man, how are you doing?'
+  phoneNumber: '4153518780',
+  message: 'This is the code to verify your account'
 };
 
 // Set up a job
