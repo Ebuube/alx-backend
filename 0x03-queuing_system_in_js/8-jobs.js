@@ -1,3 +1,4 @@
+import util from 'util';
 const queueName = 'push_notification_code_3';
 
 /**
@@ -10,11 +11,15 @@ function createPushNotificationsJobs(jobs, queue) {
   if (!Array.isArray(jobs)) {
     throw new Error('Jobs is not an array');
   }
+  console.log(`Jobs contains: ${util.inspect(jobs)}`);  // testing
 
   jobs.forEach((payload) => {
     const job = queue.create(queueName, payload)
       .save((err) => {
         if (!err) {
+          if (!job) {
+            throw new Error(`Job is null for payload: ${util.inspect(payload)}`); // testing
+          }
           console.log(`Notification job created: ${job.id}`);
         }
       });
