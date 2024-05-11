@@ -1,6 +1,7 @@
 import createPushNotificationsJobs from './8-jobs.js';
 import kue from 'kue';
 import { expect } from 'chai';
+import { inspect } from 'util'
 
 const queueName = 'push_notification_code_3';
 describe('cratePushNotificaionsJobs - Testing', () => {
@@ -21,5 +22,11 @@ describe('cratePushNotificaionsJobs - Testing', () => {
   // Tests
   it('should throw an error if jobs is not an array', () => {
     expect(() => createPushNotificationsJobs(null, queue)).to.throw('Jobs is not an array');
+  });
+
+  it('should create no job for empty array', () => {
+    createPushNotificationsJobs([], queue);
+
+    expect(queue.testMode.jobs).to.have.lengthOf(0);
   });
 });
