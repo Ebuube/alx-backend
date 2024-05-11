@@ -60,17 +60,17 @@ jobs.forEach((payload) => {
     });
 
   // Listen for job completion
-  job.on('complete', () => {
-    console.log(`Notification job ${job.id} completed`);
+  job.on('complete', function() {
+    console.log(`Notification job #${job.id} completed`);
   });
 
   // Listen for job failure
-  job.on('failure', (error) => {
-    console.log(`Notification job ${job.id} failed: ${error}`);
+  job.on('failed', function(error) {
+    console.error(`Notification job #${job.id} failed: ${error}`);
   });
 
   // Listen for job progress
-  job.on('progress', (progress) => {
-    console.log(`Notification job ${job.id} ${progress}% complete`);
+  job.on('progress', function(progress) {
+    console.log(`Notification job #${job.id} ${progress}% complete`);
   });
 });

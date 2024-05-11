@@ -15,8 +15,12 @@ const queue = kue.createQueue({
  * @param {function} done - Marks a job as done
  */
 function sendNotification(phoneNumber, message, job, done) {
-  if (phoneNumber in blacklist) {
-    // fail
+  // Track progress to 0%
+  job.progress(0, 100);
+
+  if (blacklist.includes(phoneNumber)) {
+    // fail job with error
+    return done(new Error(`Phone number ${phoneNumber} is blacklisted`));
   }
 
   // Track progress to 50%
